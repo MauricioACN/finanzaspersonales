@@ -1,0 +1,44 @@
+Modelo,Rubro,Categoria,SubCategoria
+Modelo Detallado,Ingreso,Salario,Salario
+Modelo Detallado,Ingreso,Ingreso Extra,Ingreso Extra
+Modelo Detallado,Ingreso,Dividendos,Dividendos
+Modelo Detallado,Ingreso,Otro,Otro
+Modelo Detallado,Egreso,Hogar,Luz
+Modelo Detallado,Egreso,Hogar,Gas
+Modelo Detallado,Egreso,Hogar,Agua
+Modelo Detallado,Egreso,Hogar,Plan Movil
+Modelo Detallado,Egreso,Hogar,Plan Hogar (Internet-TV-+)
+Modelo Detallado,Egreso,Hogar,Arreglos
+Modelo Detallado,Egreso,Hogar,Mercado
+Modelo Detallado,Egreso,Hogar,Arriendo
+Modelo Detallado,Egreso,Hogar,Impuestos
+Modelo Detallado,Egreso,Hogar,Administración
+Modelo Detallado,Egreso,Hogar,Otros
+Modelo Detallado,Egreso,Deuda,Tarjeta de Crédito
+Modelo Detallado,Egreso,Deuda,Crédito Educativo
+Modelo Detallado,Egreso,Deuda,Crédito Hipotecario
+Modelo Detallado,Egreso,Deuda,Crédito Vehículo
+Modelo Detallado,Egreso,Deuda,Libre Inversión
+Modelo Detallado,Egreso,Deuda,Otro
+Modelo Detallado,Egreso,Transporte,Público
+Modelo Detallado,Egreso,Transporte,Taxi
+Modelo Detallado,Egreso,Transporte,Taxi
+Modelo Detallado,Egreso,Comida,Restaurante
+Modelo Detallado,Egreso,Comida,Comida Rapida
+Modelo Detallado,Egreso,Comida,Café/Postre
+Modelo Detallado,Egreso,Comida,Bar
+Modelo Detallado,Egreso,Salud,Gastos Médicos
+Modelo Detallado,Egreso,Salud,Medicamentos
+Modelo Detallado,Egreso,Salud,Dentista
+Modelo Detallado,Egreso,Salud,Otro
+Modelo Detallado,Egreso,Ropa,Ropa
+Modelo Detallado,Egreso,Diversión,Cine/teatro
+Modelo Detallado,Egreso,Diversión,Gimnasio/piscina
+Modelo Detallado,Egreso,Diversión,Libros
+Modelo Detallado,Egreso,Diversión,Otros
+Modelo Detallado,Egreso,Otros Gastos,Regalos
+Modelo Detallado,Egreso,Otros Gastos,Gato/perro
+Modelo Detallado,Egreso,Otros Gastos,Vacaciones
+Modelo Detallado,Egreso,Otros Gastos,Veterinario
+Modelo Detallado,Egreso,Otros Gastos,Caridad
+Modelo Detallado,Egreso,Otros Gastos,Otros
