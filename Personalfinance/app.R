@@ -1,7 +1,7 @@
 # app modificada
 
-source("global.R", encoding = "UTF-8")
-source("functions.R", encoding = "UTF-8")
+source("global.R")
+source("functions.R")
 
 #
 ui <- navbarPage("Finanzas Personales",
@@ -13,16 +13,15 @@ ui <- navbarPage("Finanzas Personales",
                               sidebarPanel(width = 4,
                                            textInput('nombre', 'Dime quien eres?',""),
                                            dateInput('fecha',label = "Fecha de transacción"),
-                                           selectInput('modelo', 'Selecciona un modelo de informe:',categorias$Modelo,selected = ""),
+                                           selectInput('modelo', 'Selecciona un modelo de informe:',unique(categorias$Modelo)),
                                            p("Recuerda que debe seleccionar siempre el mismo modelo de informe, lee los detalles de cada informe en la pestaña Información.",style = "font-family: 'times'; font-si16pt"),
-                                           hr(),
-                                           selectInput('rubro', 'Selecciona un rubro:',categorias$Rubro,selected = ""),
-                                           selectInput('categoria', 'Selecciona una categoria:',categorias$Categoria,selected = ""),
-                                           selectInput('subcategoria', 'Selecciona una subcategoria:',categorias$SubCategoria,selected = ""),
+                                           selectInput('rubro', 'Selecciona un rubro:',choices = NULL),
+                                           selectInput('categoria', 'Selecciona una categoria:',choices = NULL),
+                                           selectInput('subcategoria', 'Selecciona una subcategoria:',choices = NULL),
                                            numericInput("valor","Agrega el valor correspondiente:",value = 0),
-                                           submitButton("Agregar Registro")
+                                           actionButton(inputId = "button","Agregar Registro")
                               ),
-                              mainPanel()#uiOutput(outputId = "grafica"))
+                              mainPanel(DT::dataTableOutput("responses", width = 600), tags$hr())
                           )),
                  tabPanel("Presupuesto",p("Aquí puedes ver la nube de palabras según los filtros de la página anterior", ":",style = "font-size:25px"),
                           hr(),
@@ -46,6 +45,48 @@ ui <- navbarPage("Finanzas Personales",
 
 server <- function(input, output, session) {
     
+
+  observeEvent(input$modelo,{
+    
+    updateSelectInput(session,inputId = "rubro", 
+                      choices = unique(categorias$Rubro[categorias$Modelo==input$modelo]))
+    
+  })
+  
+  observeEvent(input$rubro,{
+    
+    updateSelectInput(session,inputId = "categoria", choices = unique(categorias$Categoria[categorias$Rubro==input$rubro&categorias$Modelo==input$modelo]))
+    
+  })
+  
+  observeEvent(input$categoria,{
+    
+    updateSelectInput(session,inputId = "subcategoria", choices = unique(categorias$SubCategoria[categorias$Categoria==input$categoria&categorias$Rubro==input$rubro&categorias$Modelo==input$modelo]))
+    
+  })
+  
+  
+  # Whenever a field is filled, aggregate all form data
+  formData <- reactive({
+    data <- sapply(fields, function(x) input[[x]])
+    data
+  })
+  
+  # When the Submit button is clicked, save the form data
+  observeEvent(input$button, {
+    saveData(formData())
+  })
+  
+  # Show the previous responses
+  # (update with current response when Submit is clicked)
+  output$responses <- DT::renderDataTable({
+      
+    input$button
+    
+      loadData()
+      
+      })
+
 }
 
 shinyApp(ui = ui,server = server)
