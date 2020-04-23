@@ -2,6 +2,7 @@
 
 source("global.R")
 source("functions.R")
+#source("drop_access.R")
 
 #
 ui <- navbarPage("Finanzas Personales",
@@ -21,7 +22,7 @@ ui <- navbarPage("Finanzas Personales",
                                            numericInput("valor","Agrega el valor correspondiente:",value = 0),
                                            actionButton(inputId = "button","Agregar Registro")
                               ),
-                              mainPanel(DT::dataTableOutput("responses", width = 600), tags$hr())
+                              mainPanel(textOutput("mensjae"), tags$hr())
                           )),
                  tabPanel("Presupuesto",p("Aquí puedes ver la nube de palabras según los filtros de la página anterior", ":",style = "font-size:25px"),
                           hr(),
@@ -72,21 +73,44 @@ server <- function(input, output, session) {
     data
   })
   
-  # When the Submit button is clicked, save the form data
+  # Show the previous responses
+  # (update with current response when Submit is clicked)
+  
+    # When the Submit button is clicked, save the form data
+  
+  
   observeEvent(input$button, {
+    
     saveData(formData())
   })
   
-  # Show the previous responses
-  # (update with current response when Submit is clicked)
-  output$responses <- DT::renderDataTable({
-      
-    input$button
+  
+  datos_me = reactive({
     
-      loadData()
+    datos = loadData()
+    datos = datos %>% filter(nombre==input$nombre)
+    datos
+    
+  }) 
+  
+  output$mensjae <- renderText({
+    
+    if(input$nombre==""){
       
-      })
-
+      print(paste("¡Hola! dejame saber quien eres"))
+      
+    }
+    else if(nrow(datos_me())==0&input$nombre!=""){
+      
+      print(paste(input$nombre, "aún no tengo registros tuyos por favor completa la información para empezar el seguimiento de tus finanzas."))
+      
+    }
+    else{
+      print(paste("Hola",input$nombre,"es un gusto tenerte aquí. Por favor ingresa la información solicitada. Tu última actualización se realizó el",max(datos_me()$fecha))) 
+    }
+    
+  })
+    
 }
 
 shinyApp(ui = ui,server = server)
